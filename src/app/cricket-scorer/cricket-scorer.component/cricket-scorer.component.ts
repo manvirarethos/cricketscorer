@@ -264,6 +264,35 @@ export class CricketScorerComponent implements OnInit {
     this.saveToLocalStorage();
   }
 
+  editCurrentBowler(): void {
+    const inningsData = this.innings()[this.currentInnings() as 1 | 2];
+    inningsData.showBowlerInput = true;
+    this.innings.set({ ...this.innings() });
+  }
+
+  editLastCompletedOver(): void {
+    const inningsData = this.innings()[this.currentInnings() as 1 | 2];
+
+    if (inningsData.overs.length === 0) {
+      alert('No completed overs to edit');
+      return;
+    }
+
+    // Get the last completed over
+    const lastOver = inningsData.overs.pop()!;
+
+    // Set it as the current over for editing
+    inningsData.currentOver = {
+      overNo: lastOver.overNo,
+      bowlerName: lastOver.bowlerName,
+      balls: [...lastOver.balls]
+    };
+    inningsData.showBowlerInput = false;
+
+    this.innings.set({ ...this.innings() });
+    this.saveToLocalStorage();
+  }
+
   getMatchResult(): string | null {
     const innings1 = this.calculateInningsTotal(1);
     const innings2 = this.calculateInningsTotal(2);
