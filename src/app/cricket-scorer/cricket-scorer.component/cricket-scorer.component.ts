@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { SetupScreenComponent } from '../components/setup-screen/setup-screen.component';
+import { ScoreSummaryComponent } from '../components/score-summary/score-summary.component';
+import { BallControlsComponent, BallInput } from '../components/ball-controls/ball-controls.component';
+import { OverCardComponent } from '../components/over-card/over-card.component';
 
 interface Ball {
   id: number;
@@ -50,28 +54,36 @@ interface MatchData {
 @Component({
   selector: 'app-cricket-scorer',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    SetupScreenComponent,
+    ScoreSummaryComponent,
+    BallControlsComponent,
+    OverCardComponent
+  ],
   templateUrl: './cricket-scorer.component.html',
   styleUrls: ['./cricket-scorer.component.css']
 })
 export class CricketScorerComponent implements OnInit {
-  matchSetup: MatchSetup | null = null;
-  currentInnings: number = 1;
-  innings: {
+  // Signals for reactive state management
+  matchSetup = signal<MatchSetup | null>(null);
+  currentInnings = signal<number>(1);
+  innings = signal<{
     1: InningsData;
     2: InningsData;
-  } = {
-      1: {
-        overs: [],
-        currentOver: { overNo: 1, bowlerName: '', balls: [] },
-        showBowlerInput: true
-      },
-      2: {
-        overs: [],
-        currentOver: { overNo: 1, bowlerName: '', balls: [] },
-        showBowlerInput: true
-      }
-    };
+  }>({
+    1: {
+      overs: [],
+      currentOver: { overNo: 1, bowlerName: '', balls: [] },
+      showBowlerInput: true
+    },
+    2: {
+      overs: [],
+      currentOver: { overNo: 1, bowlerName: '', balls: [] },
+      showBowlerInput: true
+    }
+  });
 
   // Form data for match setup
   setupForm = {
@@ -82,6 +94,9 @@ export class CricketScorerComponent implements OnInit {
     time: new Date().toTimeString().slice(0, 5)
   };
 
+  // Computed signals
+  currentInningsData = computed(() => this.innings()[this.currentInnings() as 1 | 2]);
+
   ngOnInit(): void {
     this.loadFromLocalStorage();
   }
@@ -91,9 +106,9 @@ export class CricketScorerComponent implements OnInit {
     if (savedData) {
       try {
         const data: MatchData = JSON.parse(savedData);
-        this.matchSetup = data.matchSetup || null;
-        this.currentInnings = data.currentInnings || 1;
-        this.innings = data.innings || this.innings;
+        this.matchSetup.set(data.matchSetup || null);
+        this.currentInnings.set(data.currentInnings || 1);
+        this.innings.set(data.innings || this.innings());
       } catch (e) {
         console.error('Error loading data:', e);
       }
@@ -102,34 +117,42 @@ export class CricketScorerComponent implements OnInit {
 
   saveToLocalStorage(): void {
     const data: MatchData = {
-      matchSetup: this.matchSetup,
-      currentInnings: this.currentInnings,
-      innings: this.innings
+      matchSetup: this.matchSetup(),
+      currentInnings: this.currentInnings(),
+      innings: this.innings()
     };
     localStorage.setItem('cricketMatch', JSON.stringify(data));
   }
 
-  handleMatchSetup(): void {
-    if (!this.setupForm.team1 || !this.setupForm.team2 || !this.setupForm.location) {
-      alert('Please fill in all required fields');
-      return;
-    }
-    this.matchSetup = { ...this.setupForm };
+  handleMatchSetup(setupData: MatchSetup): void {
+    this.matchSetup.set(setupData);
     this.saveToLocalStorage();
   }
 
   handleBowlerSubmit(): void {
-    const inningsData = this.innings[this.currentInnings as 1 | 2];
+    const inningsData = this.innings()[this.currentInnings() as 1 | 2];
     if (!inningsData.currentOver.bowlerName.trim()) {
       alert('Please enter bowler name');
       return;
     }
     inningsData.showBowlerInput = false;
+    this.innings.set({ ...this.innings() });
     this.saveToLocalStorage();
   }
 
+  handleBallInput(ballInput: BallInput): void {
+    this.addBall(
+      ballInput.runs,
+      ballInput.isWide,
+      ballInput.isNoBall,
+      ballInput.isWicket,
+      ballInput.isBye,
+      ballInput.isLegBye
+    );
+  }
+
   addBall(runs: number, isWide = false, isNoBall = false, isWicket = false, isBye = false, isLegBye = false): void {
-    const inningsData = this.innings[this.currentInnings as 1 | 2];
+    const inningsData = this.innings()[this.currentInnings() as 1 | 2];
 
     const newBall: Ball = {
       id: Date.now(),
@@ -163,6 +186,7 @@ export class CricketScorerComponent implements OnInit {
       inningsData.showBowlerInput = true;
     }
 
+    this.innings.set({ ...this.innings() });
     this.saveToLocalStorage();
   }
 
@@ -193,12 +217,12 @@ export class CricketScorerComponent implements OnInit {
   }
 
   calculateInningsTotal(inningsNum: number): { runs: number; wickets: number; overs: string } {
-    const inningsData = this.innings[inningsNum as 1 | 2];
+    const inningsData = this.innings()[inningsNum as 1 | 2];
     let totalRuns = 0;
     let totalWickets = 0;
     let totalBalls = 0;
 
-    inningsData.overs.forEach(over => {
+    inningsData.overs.forEach((over: Over) => {
       const stats = this.calculateOverStats(over.balls);
       totalRuns += stats.runs;
       totalWickets += stats.wickets;
@@ -217,7 +241,7 @@ export class CricketScorerComponent implements OnInit {
   }
 
   deleteLastBall(): void {
-    const inningsData = this.innings[this.currentInnings as 1 | 2];
+    const inningsData = this.innings()[this.currentInnings() as 1 | 2];
 
     if (inningsData.currentOver.balls.length > 0) {
       inningsData.currentOver.balls.pop();
@@ -231,11 +255,12 @@ export class CricketScorerComponent implements OnInit {
       inningsData.showBowlerInput = false;
     }
 
+    this.innings.set({ ...this.innings() });
     this.saveToLocalStorage();
   }
 
   switchInnings(inningsNum: number): void {
-    this.currentInnings = inningsNum;
+    this.currentInnings.set(inningsNum);
     this.saveToLocalStorage();
   }
 
@@ -249,10 +274,10 @@ export class CricketScorerComponent implements OnInit {
 
     if (innings2.runs > innings1.runs) {
       const margin = 10 - innings2.wickets;
-      return `${this.matchSetup?.team2} won by ${margin} wicket${margin !== 1 ? 's' : ''}`;
+      return `${this.matchSetup()?.team2} won by ${margin} wicket${margin !== 1 ? 's' : ''}`;
     } else if (innings1.runs > innings2.runs) {
       const margin = innings1.runs - innings2.runs;
-      return `${this.matchSetup?.team1} won by ${margin} run${margin !== 1 ? 's' : ''}`;
+      return `${this.matchSetup()?.team1} won by ${margin} run${margin !== 1 ? 's' : ''}`;
     } else if (innings2.wickets === 10) {
       return 'Match Tied';
     }
@@ -262,29 +287,26 @@ export class CricketScorerComponent implements OnInit {
 
   handleReset(): void {
     if (confirm('Are you sure you want to reset the entire match?')) {
-      this.matchSetup = null;
-      this.currentInnings = 1;
-      this.innings = {
+      this.matchSetup.set(null);
+      this.currentInnings.set(1);
+      this.innings.set({
         1: { overs: [], currentOver: { overNo: 1, bowlerName: '', balls: [] }, showBowlerInput: true },
         2: { overs: [], currentOver: { overNo: 1, bowlerName: '', balls: [] }, showBowlerInput: true }
-      };
+      });
       localStorage.removeItem('cricketMatch');
     }
   }
 
-  get currentInningsData(): InningsData {
-    return this.innings[this.currentInnings as 1 | 2];
-  }
   getBattingTeam(): string {
-    return this.currentInnings === 1 ? this.matchSetup?.team1 || '' : this.matchSetup?.team2 || '';
+    return this.currentInnings() === 1 ? this.matchSetup()?.team1 || '' : this.matchSetup()?.team2 || '';
   }
 
   getBowlingTeam(): string {
-    return this.currentInnings === 1 ? this.matchSetup?.team2 || '' : this.matchSetup?.team1 || '';
+    return this.currentInnings() === 1 ? this.matchSetup()?.team2 || '' : this.matchSetup()?.team1 || '';
   }
 
   getTarget(): { target: number; needed: number } | null {
-    if (this.currentInnings !== 2) return null;
+    if (this.currentInnings() !== 2) return null;
 
     const innings1Total = this.calculateInningsTotal(1);
     const innings2Total = this.calculateInningsTotal(2);

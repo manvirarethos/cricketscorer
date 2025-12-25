@@ -1,0 +1,49 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cricket Ball -->
+  <defs>
+    <radialGradient id="ballGradient" cx="40%" cy="40%">
+      <stop offset="0%" style="stop-color:#FF4444;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#DC143C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B0000;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+
+  <!-- Ball Circle -->
+  <circle cx="64" cy="64" r="58" fill="url(#ballGradient)" stroke="#660000" stroke-width="4"/>
+
+  <!-- Seam Lines -->
+  <!-- Upper seam -->
+  <path d="M 30 48 Q 64 52 98 48" stroke="#ffffff" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M 30 48 Q 64 52 98 48" stroke="#cccccc" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Lower seam -->
+  <path d="M 30 80 Q 64 76 98 80" stroke="#ffffff" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M 30 80 Q 64 76 98 80" stroke="#cccccc" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Stitching on upper seam -->
+  <line x1="28" y1="50" x2="25" y2="45" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="36" y1="50.5" x2="33" y2="45.5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="44" y1="51" x2="41" y2="46" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="52" y1="51.5" x2="49" y2="46.5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="60" y1="52" x2="57" y2="47" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="68" y1="52" x2="71" y2="47" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="76" y1="51.5" x2="79" y2="46.5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="84" y1="51" x2="87" y2="46" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="92" y1="50.5" x2="95" y2="45.5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="100" y1="50" x2="103" y2="45" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Stitching on lower seam -->
+  <line x1="28" y1="78" x2="25" y2="83" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="36" y1="77.5" x2="33" y2="82.5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="44" y1="77" x2="41" y2="82" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="52" y1="76.5" x2="49" y2="81.5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="60" y1="76" x2="57" y2="81" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="68" y1="76" x2="71" y2="81" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="76" y1="76.5" x2="79" y2="81.5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="84" y1="77" x2="87" y2="82" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="92" y1="77.5" x2="95" y2="82.5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="100" y1="78" x2="103" y2="83" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Highlight for 3D effect -->
+  <ellipse cx="50" cy="48" rx="18" ry="15" fill="#ffffff" opacity="0.15"/>
+</svg>

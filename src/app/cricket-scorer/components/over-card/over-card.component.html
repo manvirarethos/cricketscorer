@@ -1,0 +1,22 @@
+<div *ngIf="over()" [class.over-card]="isCompleted()" [class.current-over-box]="!isCompleted()">
+    <div [class.over-card-header]="isCompleted()" [class.over-header]="!isCompleted()">
+        <div>
+            <h3 class="over-title" *ngIf="isCompleted()">Over {{ over()!.overNo }}</h3>
+            <span class="over-number" *ngIf="isCompleted()">{{ over()!.bowlerName }}</span>
+
+            <h3 class="over-title" *ngIf="!isCompleted()">Over {{ over()!.overNo }}</h3>
+            <p class="bowler-name" *ngIf="!isCompleted()">Bowler: {{ over()!.bowlerName }}</p>
+        </div>
+        <div *ngIf="!isCompleted()" class="over-stats">
+            <p class="over-stats-text">{{ calculateOverStats(over()!.balls).runs }} runs, {{ calculateOverStats(over()!.balls).wickets }} wicket(s)</p>
+        </div>
+        <span *ngIf="isCompleted()" class="over-summary">{{ calculateOverStats(over()!.balls).runs }} runs, {{ calculateOverStats(over()!.balls).wickets }} wicket(s)</span>
+    </div>
+
+    <div *ngIf="over()!.balls.length > 0" [class.over-balls]="isCompleted()" [class.balls-container]="!isCompleted()">
+        <span *ngFor="let ball of over()!.balls"
+              [ngClass]="getBallClass(ball)"
+              [class.ball-badge-small]="isCompleted()"
+              [class.ball-badge]="!isCompleted()">{{ ball.label }}</span>
+    </div>
+</div>

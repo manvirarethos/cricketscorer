@@ -1,0 +1,32 @@
+<div class="score-card">
+    <div class="batting-info">
+        <h2 class="batting-title">{{ battingTeam() }} Innings</h2>
+        <p class="bowling-info">Bowling: {{ bowlingTeam() }}</p>
+    </div>
+
+    <div class="score-grid">
+        <div class="score-box score-runs">
+            <p class="score-label">Score</p>
+            <p class="score-value">{{ runs() }}/{{ wickets() }}</p>
+        </div>
+        <div class="score-box score-overs">
+            <p class="score-label">Overs</p>
+            <p class="score-value">{{ overs() }}</p>
+        </div>
+        <div class="score-box score-rr">
+            <p class="score-label">Run Rate</p>
+            <p class="score-value">{{ runRate() }}</p>
+        </div>
+    </div>
+
+    <!-- Target Display -->
+    <div *ngIf="target()" class="target-box">
+        <p class="target-text">Target: <span class="target-value">{{ target()!.target }}</span></p>
+        <p class="target-text">{{ target()!.needed > 0 ? 'Need ' + target()!.needed + ' runs to win' : 'Target achieved!' }}</p>
+    </div>
+
+    <!-- Match Result -->
+    <div *ngIf="matchResult()" class="result-box">
+        <p class="result-text">{{ matchResult() }}</p>
+    </div>
+</div>

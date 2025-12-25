@@ -1,0 +1,34 @@
+<div class="setup-container">
+    <div class="setup-card">
+        <h1 class="setup-title">Match Setup</h1>
+
+        <div class="form-group">
+            <label class="form-label">Team 1 (Batting First) *</label>
+            <input type="text" [(ngModel)]="setupForm.team1" placeholder="Enter team name" class="form-input" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Team 2 (Batting Second) *</label>
+            <input type="text" [(ngModel)]="setupForm.team2" placeholder="Enter team name" class="form-input" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Match Location *</label>
+            <input type="text" [(ngModel)]="setupForm.location" placeholder="Enter location" class="form-input" />
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Date</label>
+                <input type="date" [(ngModel)]="setupForm.date" class="form-input" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Time</label>
+                <input type="time" [(ngModel)]="setupForm.time" class="form-input" />
+            </div>
+        </div>
+
+        <button (click)="handleMatchSetup()" class="btn-start-match">Start Match</button>
+    </div>
+</div>

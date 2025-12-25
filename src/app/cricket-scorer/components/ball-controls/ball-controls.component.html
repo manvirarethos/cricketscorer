@@ -1,0 +1,27 @@
+<div class="buttons-section">
+    <div class="button-grid">
+        <button (click)="addBall(0)" class="btn-score btn-0">0</button>
+        <button (click)="addBall(1)" class="btn-score btn-1">1</button>
+        <button (click)="addBall(2)" class="btn-score btn-2">2</button>
+        <button (click)="addBall(3)" class="btn-score btn-3">3</button>
+        <button (click)="addBall(4)" class="btn-score btn-4">4</button>
+        <button (click)="addBall(6)" class="btn-score btn-6">6</button>
+        <button (click)="addBall(0, false, false, true)" class="btn-score btn-w">W</button>
+        <button (click)="undo()" class="btn-score btn-undo">Undo</button>
+    </div>
+
+    <div class="button-grid-extras">
+        <button (click)="addBall(0, true)" class="btn-extra">WD</button>
+        <button (click)="addBall(0, false, true)" class="btn-extra">NB</button>
+        <button (click)="addBall(1, false, false, false, true)" class="btn-extra">1 Bye</button>
+        <button (click)="addBall(1, false, false, false, false, true)" class="btn-extra">1 LB</button>
+        <button (click)="addBall(1, true)" class="btn-extra">WD+1</button>
+        <button (click)="addBall(1, false, true)" class="btn-extra">NB+1</button>
+        <button (click)="addBall(2, false, true)" class="btn-extra">NB+2</button>
+        <button (click)="addBall(3, false, true)" class="btn-extra">NB+3</button>
+        <button (click)="addBall(4, false, true)" class="btn-extra">NB+4</button>
+        <button (click)="addBall(6, false, true)" class="btn-extra">NB+6</button>
+        <button (click)="addBall(2, false, false, false, true)" class="btn-extra">2 Bye</button>
+        <button (click)="addBall(4, false, false, false, true)" class="btn-extra">4 Bye</button>
+    </div>
+</div>

@@ -1,5 +1,16 @@
-    <app-cricket-scorer></app-cricket-scorer>
-    <div *ngIf="updateAvailable" class="update-banner">
-      <p>New version available!</p>
-      <button (click)="updateApp()">Update Now</button>
-    </div>
+<!-- Splash Screen -->
+<app-splash-screen *ngIf="showSplash" (splashComplete)="onSplashComplete()"></app-splash-screen>
+
+<!-- Main App Content -->
+<div *ngIf="!showSplash" class="app-container">
+  <app-cricket-scorer></app-cricket-scorer>
+
+  <!-- Footer -->
+  <app-footer></app-footer>
+
+  <!-- Update Banner -->
+  <div *ngIf="updateAvailable" class="update-banner">
+    <p>New version available!</p>
+    <button (click)="updateApp()">Update Now</button>
+  </div>
+</div>

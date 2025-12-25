@@ -1,0 +1,152 @@
+.buttons-section {
+  margin-top: 25px;
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.btn-score {
+  padding: 20px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: 3px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+  color: #333;
+}
+
+.btn-score:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-score:active {
+  transform: translateY(0);
+}
+
+.btn-0:hover { background: #6c757d; color: white; border-color: #6c757d; }
+.btn-1:hover { background: #667eea; color: white; border-color: #667eea; }
+.btn-2:hover { background: #667eea; color: white; border-color: #667eea; }
+.btn-3:hover { background: #667eea; color: white; border-color: #667eea; }
+
+.btn-4 {
+  background: #20c997;
+  color: white;
+  border-color: #20c997;
+}
+
+.btn-4:hover {
+  background: #1aa179;
+  border-color: #1aa179;
+}
+
+.btn-6 {
+  background: #fd7e14;
+  color: white;
+  border-color: #fd7e14;
+}
+
+.btn-6:hover {
+  background: #e8590c;
+  border-color: #e8590c;
+}
+
+.btn-w {
+  background: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+
+.btn-w:hover {
+  background: #c82333;
+  border-color: #c82333;
+}
+
+.btn-undo {
+  background: #6c757d;
+  color: white;
+  border-color: #6c757d;
+  font-size: 1rem;
+}
+
+.btn-undo:hover {
+  background: #5a6268;
+  border-color: #5a6268;
+}
+
+.button-grid-extras {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.btn-extra {
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid #ffc107;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fff3cd;
+  color: #333;
+}
+
+.btn-extra:hover {
+  background: #ffc107;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .button-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .button-grid-extras {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .btn-score {
+    padding: 12px;
+    font-size: 1.2rem;
+  }
+
+  .btn-extra {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-grid {
+    gap: 6px;
+  }
+
+  .btn-score {
+    padding: 10px;
+    font-size: 1.1rem;
+  }
+
+  .btn-undo {
+    font-size: 0.75rem;
+  }
+
+  .button-grid-extras {
+    gap: 6px;
+  }
+
+  .btn-extra {
+    padding: 8px;
+    font-size: 0.7rem;
+  }
+}

@@ -1,183 +1,103 @@
 <!-- Match Setup Screen -->
-<div *ngIf="!matchSetup" class="setup-container">
-    <div class="setup-card">
-        <h1 class="setup-title">Match Setup</h1>
-
-        <div class="form-group">
-            <label class="form-label">Team 1 (Batting First) *</label>
-            <input type="text" [(ngModel)]="setupForm.team1" placeholder="Enter team name" class="form-input" />
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Team 2 (Batting Second) *</label>
-            <input type="text" [(ngModel)]="setupForm.team2" placeholder="Enter team name" class="form-input" />
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">Match Location *</label>
-            <input type="text" [(ngModel)]="setupForm.location" placeholder="Enter location" class="form-input" />
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label class="form-label">Date</label>
-                <input type="date" [(ngModel)]="setupForm.date" class="form-input" />
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Time</label>
-                <input type="time" [(ngModel)]="setupForm.time" class="form-input" />
-            </div>
-        </div>
-
-        <button (click)="handleMatchSetup()" class="btn-start-match">Start Match</button>
-    </div>
-</div>
+<app-setup-screen *ngIf="!matchSetup()" (setupComplete)="handleMatchSetup($event)"></app-setup-screen>
 
 <!-- Main Scoring Screen -->
-<div *ngIf="matchSetup" class="scorer-container">
+<div *ngIf="matchSetup()" class="scorer-container">
     <div class="container">
 
         <!-- Match Header -->
         <div class="match-header">
             <div class="match-info">
-                <h1 class="match-title">{{ matchSetup.team1 }} vs {{ matchSetup.team2 }}</h1>
+                <h1 class="match-title">{{ matchSetup()!.team1 }} vs {{ matchSetup()!.team2 }}</h1>
                 <div class="match-details">
-                    <span class="detail-item">📍 {{ matchSetup.location }}</span>
-                    <span class="detail-item">📅 {{ matchSetup.date }} {{ matchSetup.time }}</span>
+                    <span class="detail-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        {{ matchSetup()!.location }}
+                    </span>
+                    <span class="detail-item">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                            <line x1="16" y1="2" x2="16" y2="6"/>
+                            <line x1="8" y1="2" x2="8" y2="6"/>
+                            <line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        {{ matchSetup()!.date }} {{ matchSetup()!.time }}
+                    </span>
                 </div>
             </div>
-            <button (click)="handleReset()" class="btn-reset">🔄 Reset Match</button>
+            <button (click)="handleReset()" class="btn-reset">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                </svg>
+                Reset Match
+            </button>
         </div>
 
         <!-- Innings Selector -->
         <div class="innings-selector">
-            <button (click)="switchInnings(1)" [class.active]="currentInnings === 1" class="innings-btn">
-                <div class="innings-name">1st Innings: {{ matchSetup.team1 }}</div>
+            <button (click)="switchInnings(1)" [class.active]="currentInnings() === 1" class="innings-btn">
+                <div class="innings-name">1st Innings: {{ matchSetup()!.team1 }}</div>
                 <div class="innings-score">{{ calculateInningsTotal(1).runs }}/{{ calculateInningsTotal(1).wickets }}
                     ({{ calculateInningsTotal(1).overs }})</div>
             </button>
-            <button (click)="switchInnings(2)" [class.active]="currentInnings === 2" class="innings-btn">
-                <div class="innings-name">2nd Innings: {{ matchSetup.team2 }}</div>
+            <button (click)="switchInnings(2)" [class.active]="currentInnings() === 2" class="innings-btn">
+                <div class="innings-name">2nd Innings: {{ matchSetup()!.team2 }}</div>
                 <div class="innings-score">{{ calculateInningsTotal(2).runs }}/{{ calculateInningsTotal(2).wickets }}
                     ({{ calculateInningsTotal(2).overs }})</div>
             </button>
         </div>
 
         <!-- Score Display -->
+        <app-score-summary
+            [battingTeam]="getBattingTeam()"
+            [bowlingTeam]="getBowlingTeam()"
+            [runs]="calculateInningsTotal(currentInnings()).runs"
+            [wickets]="calculateInningsTotal(currentInnings()).wickets"
+            [overs]="calculateInningsTotal(currentInnings()).overs"
+            [runRate]="getRunRate(currentInnings())"
+            [target]="getTarget()"
+            [matchResult]="getMatchResult()">
+        </app-score-summary>
+
         <div class="score-card">
-            <div class="batting-info">
-                <h2 class="batting-title">{{ getBattingTeam() }} Innings</h2>
-                <p class="bowling-info">Bowling: {{ getBowlingTeam() }}</p>
-            </div>
-
-            <div class="score-grid">
-                <div class="score-box score-runs">
-                    <p class="score-label">Score</p>
-                    <p class="score-value">{{ calculateInningsTotal(currentInnings).runs }}/{{
-                        calculateInningsTotal(currentInnings).wickets }}</p>
-                </div>
-                <div class="score-box score-overs">
-                    <p class="score-label">Overs</p>
-                    <p class="score-value">{{ calculateInningsTotal(currentInnings).overs }}</p>
-                </div>
-                <div class="score-box score-rr">
-                    <p class="score-label">Run Rate</p>
-                    <p class="score-value">{{ getRunRate(currentInnings) }}</p>
-                </div>
-            </div>
-
-            <!-- Target Display -->
-            <div *ngIf="getTarget()" class="target-box">
-                <p class="target-text">Target: <span class="target-value">{{ getTarget()!.target }}</span></p>
-                <p class="target-text">{{ getTarget()!.needed > 0 ? 'Need ' + getTarget()!.needed + ' runs to win' :
-                    'Target achieved!' }}</p>
-            </div>
-
-            <!-- Match Result -->
-            <div *ngIf="getMatchResult()" class="result-box">
-                <p class="result-text">{{ getMatchResult() }}</p>
-            </div>
-
             <!-- Current Over Info -->
-            <div *ngIf="currentInningsData.showBowlerInput" class="bowler-input-box">
-                <h3 class="over-title">Over {{ currentInningsData.currentOver.overNo }}</h3>
+            <div *ngIf="currentInningsData().showBowlerInput" class="bowler-input-box">
+                <h3 class="over-title">Over {{ currentInningsData().currentOver.overNo }}</h3>
                 <div class="bowler-input-row">
-                    <input type="text" [(ngModel)]="currentInningsData.currentOver.bowlerName"
-                        
+                    <input type="text" [(ngModel)]="currentInningsData().currentOver.bowlerName"
                         placeholder="Enter bowler name"
                         class="bowler-input" />
                     <button (click)="handleBowlerSubmit()" class="btn-start-over">Start Over</button>
                 </div>
             </div>
 
-            <div *ngIf="!currentInningsData.showBowlerInput" class="current-over-box">
-                <div class="over-header">
-                    <div>
-                        <h3 class="over-title">Over {{ currentInningsData.currentOver.overNo }}</h3>
-                        <p class="bowler-name">Bowler: {{ currentInningsData.currentOver.bowlerName }}</p>
-                    </div>
-                    <div class="over-stats">
-                        <p class="over-stats-text">{{ calculateOverStats(currentInningsData.currentOver.balls).runs
-                            }} runs, {{ calculateOverStats(currentInningsData.currentOver.balls).wickets }}
-                            wicket(s)</p>
-                    </div>
-                </div>
-
-                <div *ngIf="currentInningsData.currentOver.balls.length > 0" class="balls-container">
-                    <span *ngFor="let ball of currentInningsData.currentOver.balls" [ngClass]="getBallClass(ball)"
-                        class="ball-badge">{{ ball.label }}</span>
-                </div>
-            </div>
+            <!-- Current Over Display -->
+            <app-over-card
+                *ngIf="!currentInningsData().showBowlerInput"
+                [over]="currentInningsData().currentOver"
+                [isCompleted]="false">
+            </app-over-card>
 
             <!-- Ball Input Buttons -->
-            <div *ngIf="!currentInningsData.showBowlerInput" class="buttons-section">
-                <div class="button-grid">
-                    <button (click)="addBall(0)" class="btn-score btn-0">0</button>
-                    <button (click)="addBall(1)" class="btn-score btn-1">1</button>
-                    <button (click)="addBall(2)" class="btn-score btn-2">2</button>
-                    <button (click)="addBall(3)" class="btn-score btn-3">3</button>
-                    <button (click)="addBall(4)" class="btn-score btn-4">4</button>
-                    <button (click)="addBall(6)" class="btn-score btn-6">6</button>
-                    <button (click)="addBall(0, false, false, true)" class="btn-score btn-w">W</button>
-                    <button (click)="deleteLastBall()" class="btn-score btn-undo">Undo</button>
-                </div>
-
-                <div class="button-grid-extras">
-                    <button (click)="addBall(0, true)" class="btn-extra">WD</button>
-                    <button (click)="addBall(0, false, true)" class="btn-extra">NB</button>
-                    <button (click)="addBall(1, false, false, false, true)" class="btn-extra">1 Bye</button>
-                    <button (click)="addBall(1, false, false, false, false, true)" class="btn-extra">1 LB</button>
-                    <button (click)="addBall(1, true)" class="btn-extra">WD+1</button>
-                    <button (click)="addBall(1, false, true)" class="btn-extra">NB+1</button>
-                    <button (click)="addBall(2, false, true)" class="btn-extra">NB+2</button>
-                    <button (click)="addBall(3, false, true)" class="btn-extra">NB+3</button>
-                    <button (click)="addBall(4, false, true)" class="btn-extra">NB+4</button>
-                    <button (click)="addBall(6, false, true)" class="btn-extra">NB+6</button>
-                    <button (click)="addBall(2, false, false, false, true)" class="btn-extra">2 Bye</button>
-                    <button (click)="addBall(4, false, false, false, true)" class="btn-extra">4 Bye</button>
-                </div>
-            </div>
+            <app-ball-controls
+                *ngIf="!currentInningsData().showBowlerInput"
+                (ballAdded)="handleBallInput($event)"
+                (undoRequested)="deleteLastBall()">
+            </app-ball-controls>
         </div>
 
         <!-- Completed Overs -->
-        <div *ngIf="currentInningsData.overs.length > 0" class="completed-overs">
+        <div *ngIf="currentInningsData().overs.length > 0" class="completed-overs">
             <h2 class="completed-title">Completed Overs</h2>
             <div class="overs-list">
-                <div *ngFor="let over of currentInningsData.overs.slice().reverse()" class="over-card">
-                    <div class="over-card-header">
-                        <div>
-                            <span class="over-number">Over {{ over.overNo }}</span>
-                            <span class="over-bowler">{{ over.bowlerName }}</span>
-                        </div>
-                        <span class="over-summary">{{ calculateOverStats(over.balls).runs }} runs, {{
-                            calculateOverStats(over.balls).wickets }} wicket(s)</span>
-                    </div>
-                    <div class="over-balls">
-                        <span *ngFor="let ball of over.balls" [ngClass]="getBallClass(ball)" class="ball-badge-small">{{
-                            ball.label }}</span>
-                    </div>
-                </div>
+                <app-over-card
+                    *ngFor="let over of currentInningsData().overs.slice().reverse()"
+                    [over]="over"
+                    [isCompleted]="true">
+                </app-over-card>
             </div>
         </div>
 

@@ -1,0 +1,205 @@
+.score-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+}
+
+.batting-info {
+  margin-bottom: 25px;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 15px;
+}
+
+.batting-title {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.bowling-info {
+  color: #666;
+  font-size: 1rem;
+}
+
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.score-box {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.score-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.score-label {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.score-value {
+  color: #333;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.score-runs {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+}
+
+.score-runs .score-label,
+.score-runs .score-value {
+  color: white;
+}
+
+.target-box {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.target-text {
+  font-size: 1.2rem;
+  margin: 5px 0;
+  font-weight: 600;
+}
+
+.target-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.result-box {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
+  animation: celebrate 0.5s ease-out;
+}
+
+@keyframes celebrate {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.result-text {
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .score-card {
+    padding: 15px;
+  }
+
+  .batting-title {
+    font-size: 1.2rem;
+  }
+
+  .bowling-info {
+    font-size: 0.85rem;
+  }
+
+  .score-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .score-box {
+    padding: 12px;
+  }
+
+  .score-label {
+    font-size: 0.75rem;
+  }
+
+  .score-value {
+    font-size: 1.3rem;
+  }
+
+  .result-text {
+    font-size: 1.3rem;
+  }
+
+  .target-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .score-card {
+    padding: 12px;
+  }
+
+  .batting-title {
+    font-size: 1rem;
+  }
+
+  .bowling-info {
+    font-size: 0.75rem;
+  }
+
+  .score-box {
+    padding: 10px;
+  }
+
+  .score-label {
+    font-size: 0.65rem;
+    margin-bottom: 5px;
+  }
+
+  .score-value {
+    font-size: 1.1rem;
+  }
+
+  .target-box,
+  .result-box {
+    padding: 12px;
+  }
+
+  .target-text {
+    font-size: 0.8rem;
+    margin: 3px 0;
+  }
+
+  .target-value {
+    font-size: 1.2rem;
+  }
+
+  .result-text {
+    font-size: 1.1rem;
+  }
+}

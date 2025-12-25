@@ -1,0 +1,230 @@
+/* Current Over Box */
+.current-over-box {
+  background: #e8f5e9;
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.over-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.over-title {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.bowler-name {
+  color: #666;
+  font-size: 1rem;
+}
+
+.over-stats-text {
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.balls-container {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.ball-badge {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+  animation: ballAppear 0.3s ease-out;
+}
+
+@keyframes ballAppear {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Completed Over Card */
+.over-card {
+  background: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.over-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateX(5px);
+}
+
+.over-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.over-number {
+  font-weight: 700;
+  color: #667eea;
+  font-size: 1.2rem;
+  margin-right: 15px;
+}
+
+.over-bowler {
+  color: #666;
+  font-size: 1rem;
+}
+
+.over-summary {
+  color: #333;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.over-balls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ball-badge-small {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.ball-badge-small:hover {
+  transform: scale(1.15);
+}
+
+/* Ball Colors */
+.ball-normal {
+  background: white;
+  border: 3px solid #4caf50;
+  color: #333;
+}
+
+.ball-four {
+  background: #20c997;
+  border: 3px solid #20c997;
+  color: white;
+}
+
+.ball-six {
+  background: #fd7e14;
+  border: 3px solid #fd7e14;
+  color: white;
+}
+
+.ball-wicket {
+  background: #dc3545;
+  border: 3px solid #dc3545;
+  color: white;
+}
+
+.ball-extra {
+  background: #ffc107;
+  border: 3px solid #ffc107;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .over-title {
+    font-size: 1.1rem;
+  }
+
+  .bowler-name {
+    font-size: 0.85rem;
+  }
+
+  .over-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .over-card {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .current-over-box {
+    padding: 12px;
+  }
+
+  .over-title {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+  }
+
+  .bowler-name {
+    font-size: 0.75rem;
+  }
+
+  .over-stats-text {
+    font-size: 0.85rem;
+  }
+
+  .balls-container {
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .ball-badge {
+    width: 38px;
+    height: 38px;
+    font-size: 0.95rem;
+  }
+
+  .ball-badge-small {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
+  .over-card {
+    padding: 10px;
+  }
+
+  .over-number {
+    font-size: 0.95rem;
+    margin-right: 10px;
+  }
+
+  .over-bowler {
+    font-size: 0.8rem;
+  }
+
+  .over-summary {
+    font-size: 0.8rem;
+  }
+}

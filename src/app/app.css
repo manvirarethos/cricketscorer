@@ -1,0 +1,47 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+app-cricket-scorer {
+  flex: 1;
+}
+
+/* Update Banner */
+.update-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #16a34a;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  z-index: 1000;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+.update-banner button {
+  background: white;
+  color: #16a34a;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.update-banner button:hover {
+  transform: scale(1.05);
+}

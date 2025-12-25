@@ -132,6 +132,11 @@
   gap: 5px;
 }
 
+.detail-item svg {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
 .btn-reset {
   padding: 12px 24px;
   background: #dc3545;
@@ -142,6 +147,13 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-reset svg {
+  flex-shrink: 0;
 }
 
 .btn-reset:hover {
@@ -655,11 +667,11 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .setup-card {
-    padding: 30px 20px;
+    padding: 20px 15px;
   }
 
   .setup-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .form-row {
@@ -669,26 +681,84 @@
   .match-header {
     flex-direction: column;
     align-items: flex-start;
+    padding: 15px;
   }
 
   .match-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+  }
+
+  .detail-item {
+    font-size: 0.8rem;
+  }
+
+  .btn-reset {
+    font-size: 0.85rem;
+    padding: 8px 16px;
   }
 
   .innings-selector {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .innings-btn {
+    padding: 12px;
+  }
+
+  .innings-name {
+    font-size: 0.9rem;
+  }
+
+  .innings-score {
+    font-size: 1.1rem;
+  }
+
+  .score-card {
+    padding: 15px;
+  }
+
+  .batting-title {
+    font-size: 1.2rem;
+  }
+
+  .bowling-info {
+    font-size: 0.85rem;
   }
 
   .score-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .score-box {
+    padding: 12px;
+  }
+
+  .score-label {
+    font-size: 0.75rem;
+  }
+
+  .score-value {
+    font-size: 1.3rem;
+  }
+
+  .over-title {
+    font-size: 1.1rem;
+  }
+
+  .bowler-name {
+    font-size: 0.85rem;
   }
 
   .button-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
   }
 
   .button-grid-extras {
     grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
 
   .over-card-header {
@@ -697,52 +767,241 @@
   }
 
   .btn-score {
-    padding: 18px;
-    font-size: 1.5rem;
+    padding: 12px;
+    font-size: 1.2rem;
+  }
+
+  .btn-extra {
+    padding: 10px;
+    font-size: 0.8rem;
   }
 
   .result-text {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .target-text {
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .completed-overs {
+    padding: 15px;
+  }
+
+  .completed-title {
+    font-size: 1.2rem;
+  }
+
+  .over-card {
+    padding: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .scorer-container {
+    padding: 8px;
+  }
+
+  .setup-card {
+    padding: 15px 10px;
+  }
+
+  .setup-title {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    font-size: 0.8rem;
+  }
+
+  .form-input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .btn-start-match {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .match-header {
     padding: 10px;
+    gap: 10px;
+  }
+
+  .match-title {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .detail-item {
+    font-size: 0.7rem;
+  }
+
+  .detail-item svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .btn-reset {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
+
+  .btn-reset svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .innings-selector {
+    gap: 8px;
+  }
+
+  .innings-btn {
+    padding: 10px;
+  }
+
+  .innings-name {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+  }
+
+  .innings-score {
+    font-size: 1rem;
   }
 
   .score-card,
   .completed-overs {
-    padding: 20px;
+    padding: 12px;
   }
 
-  .balls-container {
-    gap: 8px;
+  .batting-title {
+    font-size: 1rem;
   }
 
-  .ball-badge {
-    width: 45px;
-    height: 45px;
+  .bowling-info {
+    font-size: 0.75rem;
+  }
+
+  .score-box {
+    padding: 10px;
+  }
+
+  .score-label {
+    font-size: 0.65rem;
+    margin-bottom: 5px;
+  }
+
+  .score-value {
     font-size: 1.1rem;
   }
 
-  .ball-badge-small {
+  .target-box,
+  .result-box {
+    padding: 12px;
+  }
+
+  .target-text {
+    font-size: 0.8rem;
+    margin: 3px 0;
+  }
+
+  .target-value {
+    font-size: 1.2rem;
+  }
+
+  .result-text {
+    font-size: 1.1rem;
+  }
+
+  .bowler-input-box,
+  .current-over-box {
+    padding: 12px;
+  }
+
+  .over-title {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+  }
+
+  .bowler-name {
+    font-size: 0.75rem;
+  }
+
+  .over-stats-text {
+    font-size: 0.85rem;
+  }
+
+  .bowler-input {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .btn-start-over {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .balls-container {
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .ball-badge {
     width: 38px;
     height: 38px;
     font-size: 0.95rem;
   }
 
+  .ball-badge-small {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+
   .button-grid {
-    gap: 8px;
+    gap: 6px;
   }
 
   .btn-score {
-    padding: 15px;
-    font-size: 1.3rem;
+    padding: 10px;
+    font-size: 1.1rem;
+  }
+
+  .btn-undo {
+    font-size: 0.75rem;
+  }
+
+  .button-grid-extras {
+    gap: 6px;
+  }
+
+  .btn-extra {
+    padding: 8px;
+    font-size: 0.7rem;
+  }
+
+  .completed-title {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .over-card {
+    padding: 10px;
+  }
+
+  .over-number {
+    font-size: 0.95rem;
+    margin-right: 10px;
+  }
+
+  .over-bowler {
+    font-size: 0.8rem;
+  }
+
+  .over-summary {
+    font-size: 0.8rem;
   }
 }
 
